@@ -32,6 +32,11 @@ class LoginController extends BaseController {
 			//Lo redirige a página correspondiente
 			//return Redirect::intended('principal');	
 			return "Welcome to Share You Files";
+			return "<h4> Welcome to Share You Files</h4> ". "<ul>
+			<li>Usuario: " . Auth::user()->username . "</li>
+			<li>Nombre: " . Auth::user()->name . "</li>
+			<li>Email: ". Auth::user()->email ."</li>	
+			</ul>";
 			
 		}else{
 			//Redirecciona a login con mensaje
