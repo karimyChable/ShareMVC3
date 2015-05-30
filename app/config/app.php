@@ -13,7 +13,7 @@ return array(
 	|
 	*/
 
-	'debug' => false,
+	'debug' => true,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -52,7 +52,7 @@ return array(
 	|
 	*/
 
-	'locale' => 'en',
+	'locale' => 'es',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -78,7 +78,7 @@ return array(
 	|
 	*/
 
-	'key' => 'BcM4oDDa48vBakNYysGY3zjh1TouLW7i',
+	'key' => 'iq1BuEYYEp1JTQihcBNiHe1ORKtTacrT',
 
 	'cipher' => MCRYPT_RIJNDAEL_128,
 

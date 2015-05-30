@@ -2,61 +2,55 @@
 
 /*
 |--------------------------------------------------------------------------
-| Application Routes
+| Archivo de rutas
 |--------------------------------------------------------------------------
 |
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the Closure to execute when that URI is requested.
+| Aquí se encuentran registradas todas las rutas para el proyecto ShareYourFiles
+|	La raíz muestra la vista de presentación de la aplicación
+|	El grupo indica todas las rutas que requieren la autenticación del usuario en la aplicación
+|	Las rutas que se encuentran fuera del grupo no requieren autenticación
 |
 */
 
-Route::get('/', function()
+//Ruta de presentación ShareYourFiles
+
+Route::get('/', array( 'before' => 'guest', function()
 {
-	
-	return View::make('ShareYourFiles');
-});
+	return View::make('HelloSYF');
+}));
 
 
-Route::get('info', 'PaginaController@info');
-
-/*
-Rutas para Inicio 
-*/
-
-//Rutas para inicio de sesión
-Route::get('login', 'LoginController@showLogin');
-Route::post('login', 'LoginController@login');
-
-/*
-Rutas para registrar a un usuario
-*/
-Route::get('register', 'RegisterController@showRegister');
-Route::post('register', 'RegisterController@registerUser');
-
-/* 
-|------------------------
-|Nos indica que las rutas que están dentro de este grupo 
-|sólo serán mostradas si el usuario se ha autenticado.
-|------------------------
-*/
-Route::group(array('before' => 'auth'), function()
-{
-/*
-Ruta de página principal
-*/
-Route::get('principal', 'LoginController@showPrincipal');
-
-/*
-Rutas para cerrar sesión
-*/
-Route::get('logout', 'LoginController@logout');
-});
-
-
-//Error 404-Page not found
+//Ruta para páginas de error 404
 App::missing(function($exception) 
 {
     return Response::view('404', array(), 404);
 });
+
+
+Route::group(array('before' => 'auth'), function()
+{
+
+	Route::get('logout', 'UserController@logout');
+
+	Route::get('/profile', 'UserController@showMyProfile');
+
+	Route::get('/edit/profile', 'UserController@showUpdateUser');
+
+	Route::post('/edit/profile', 'UserController@updateUser');
+
+
+});
+
+
+Route::get('/login', 'UserController@showLogin');
+
+Route::post('/login', 'UserController@login');
+
+Route::get('/register', 'RegisterController@showUserRegister');
+
+Route::post('/register','RegisterController@registerUser');
+
+
+?>
+
 

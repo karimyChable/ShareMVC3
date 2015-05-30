@@ -12,15 +12,14 @@ return array(
 	| has failed, such as for an invalid token or invalid new password.
 	|
 	*/
+"password" => "La contraseña debe tener al menos 6 caracteres y coincidir con la confirmación.",
 
-	"password" => "Passwords must be at least six characters and match the confirmation.",
+	"user" => "No podemos encontrar el usuario con esa dirección de correo.",
 
-	"user" => "We can't find a user with that e-mail address.",
+	"token" => "Este token de restablecimiento de contraseña es inválido.",
 
-	"token" => "This password reset token is invalid.",
+	"sent" => "Recordatorio de contraseña enviado!",
 
-	"sent" => "Password reminder sent!",
-
-	"reset" => "Password has been reset!",
+	"reset" => "La contraseña ha sido restablecida!",
 
 );

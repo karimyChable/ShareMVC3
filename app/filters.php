@@ -14,6 +14,7 @@
 App::before(function($request)
 {
 	//
+	setlocale(LC_TIME, 'Spanish');
 });
 
 
@@ -67,7 +68,10 @@ Route::filter('auth.basic', function()
 
 Route::filter('guest', function()
 {
-	if (Auth::check()) return Redirect::to('/');
+	if (Auth::check()){
+		if (Auth::check()) return Redirect::to('/');
+	} 
+		
 });
 
 /*

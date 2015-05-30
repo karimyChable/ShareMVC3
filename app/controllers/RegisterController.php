@@ -2,16 +2,60 @@
 
 class RegisterController extends BaseController {
 
-//Función para mostrar la página de registro 
-	public function showRegister(){
-			return View::make('registro');
+	/*
+	--------------------------------------------------------------------------
+	|	Register Controller
+	--------------------------------------------------------------------------
+	|  Controlador para el registro de usuario
+	|
+	|	Rutas:
+	|		Route::get('/register', 'RegisterController@showUserRegister');
+	|		Route::post('/register','RegisterController@registerUser');
+	|	Métodos:
+	|		showUserRegister()
+	|		registerUser()
+	|
+	*/
+	
+
+
+
+	/*
+	*  Función que muestra la vista para registrar a un nuevo usuario
+	*/
+	public function showUserRegister()
+	{
+		return View::make('registerSYF');
 	}
 
 
-//Función para registrar un usuario en el sistema SYF
-	public function registerUser(){
+	/*
+	* Función que se encarga de validar los datos introducidos por el usuario y 
+	* y registrarlo en el sistema.
+	*/
+	public function registerUser()
+	{
+
+		$rules=	array(
+		    	'name' => 'required|min:1|max:30', 
+		    	'username' => 'required|min:1|max:30', 
+		    	'email' => 'required|email|unique:users', 
+		    	'password' => 'required|min:6|max:20|same:password_confirmation'
+		    	);
 	
-	    //Se crea un nuevo usuario
+		//Se realizan las validaciones
+		$validator = Validator::make(Input::all(), $rules);
+
+		//Se redirige a la vista de regitro con todos los campos excepto contraseña
+		//en caso de que ocurra un error en la validación. Se regresa con los errores de validación
+
+		if ($validator->fails())
+	    {
+	        return Redirect::back()->withErrors($validator)->withInput(Input::all());
+	    }
+	    else{
+	    	//Si la validación es correcta, se obtienen los datos del formulario y se registra exitosamente el usuario.
+	    	 //Si no fallan las validaciones, se crea un nuevo viaje
 	    $user = new User;
 
 	    //Se asignan los datos del formulario al nuevo paquete
@@ -19,18 +63,16 @@ class RegisterController extends BaseController {
 	    $user->username = Input::get('username');
 	    $user->email = Input::get('email');
 	    $user->password = Hash::make(Input::get('password'));
-	    
-	    //Se guarda el usuario
-	    $user->save();
-	    //Redirecciona al usuario a iniciar sesión
-		return Redirect::to('login');
+	
+		$user -> save();
 
-
-
+			//Se redirige al usuario a su perfil en la aplicación
+			if(Auth::attempt(array('email' => $user -> email, 'password' => Input::get('password'))))
+			{
+				return Redirect::intended('profile');			
+			}
+			return Redirect::Redirect('login')->with('message', 'Registro Exitoso, inicia sesión.');
+		}	
 	}
-
-
-
-
 
 }
