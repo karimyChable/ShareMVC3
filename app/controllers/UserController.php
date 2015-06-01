@@ -55,7 +55,7 @@ class UserController extends BaseController {
 		$rules = array(
 			'name' => 'required|min:1|max:30', 
 	    	'username' => 'required|min:1|max:30', 
-	    	'email' => 'required|email|unique:users', 
+	    	'email' => 'required|email', 
 	    	'password' => 'required|min:6|max:20'
 		);
 
@@ -80,31 +80,9 @@ class UserController extends BaseController {
 	    // Se guarda la información del usuario
 	    $user->save();
 
-		return Redirect::to('/user')
-			->withMessage('Los datos se han guardado satisfactoriamente.')
-			->withClass('success');
+		return Redirect::to('/user');
 	}
 
-	//Función para eliminar del sistema al usuario autentificado.
-	function deleteUser(){
-		$user = User::find(Auth::user()->id);
-
-		Auth::logout();
-
-		if ($user->delete()) {
-
-        	return Redirect::to('/')
-        		->withMessage('Tu cuenta ha sido eliminada satisfactoriamente.')
-        		->withClass('success');
-    	}
-    	else {
-    		Auth::login($user);
-
-    		return Redirect::back()
-    			->withMessage('Tu cuenta no pudo ser eliminada, intenta de nuevo.')
-    			->withClass('danger');
-    	}
-	}
 
 	//Función para mostrar el perfil del usuario autentificado.
 	function showSYF(){

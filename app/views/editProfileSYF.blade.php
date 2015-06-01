@@ -66,7 +66,7 @@ http://www.templatemo.com/preview/templatemo_394_sonic
 				</div> <!-- /.row -->
 				<div class='row contact-form'>
                     <div class='col-md-12'>
-				{{Form::model(Auth::user())}}
+				{{Form::model(Auth::user(), array('url'=>'/edit'))}}
 		                        <label>Nombre:</label>
 		                        {{Form::text('name', null, array('id'=>'name','maxlength'=>'50','tabindex'=>'1','required'=>'true'))}}
 		                </div> 
@@ -85,6 +85,8 @@ http://www.templatemo.com/preview/templatemo_394_sonic
 
 		                        
 		                </div> <br>
+							<div><strong> {{ $errors -> first('name')}} </strong></div><br>
+							<div><strong> {{ $errors -> first('username')}} </strong></div><br>
 							<div><strong> {{ $errors -> first('password')}} </strong></div><br>
 
 
