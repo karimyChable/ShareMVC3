@@ -14,7 +14,7 @@ class CrearPosts extends Migration {
 	{
 		//
 		Schema::create('posts', function($table){
-			$table->increments('id_post');
+			$table->increments('id');
 			$table->integer('id_user')->unsigned();
 			$table->text('content', 100);
 			$table->text('filepath', 100);
@@ -22,7 +22,7 @@ class CrearPosts extends Migration {
 		});
 
 		Schema::table('posts', function($table) {
-			$table->foreign('id_user')->references('id_user')->on('users')->onDelete('cascade');
+			$table->foreign('id_user')->references('id')->on('users')->onDelete('RESTRICT')->onUpdate('CASCADE');
    });
 
 	}

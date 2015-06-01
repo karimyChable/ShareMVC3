@@ -17,19 +17,12 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	use UserTrait, RemindableTrait,SoftDeletingTrait;
 
-	/**
-	 * The database table used by the model.
-	 *
-	 * @var string
-	 */
-	protected $table = 'users';
-
-
-	//Campos que deben ser llamados en el formulario del modelo user
-	protected $fillable = ['name','username','email','password'];
+	//Campos que deben ser llanados en el formulario del modelo user
+	protected $fillable = ['email','password','name', 'username'];
 
 	//Campos ocultos o protegidos del modelo user
-	protected $hidden = array('password', 'remember_token');
+	protected $hidden = array('password');
+
 
 	//id para autenticación
 	public function getAuthIdentifier()
@@ -41,6 +34,24 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	public function getAuthPassword()
 	{
 		return $this->password;
+	}
+
+    //Obtener remeberToken
+	public function getRememberToken()
+	{
+		return $this->remember_token;
+	}
+
+	//Asignar rememberToken
+	public function setRememberToken($value)
+	{
+		$this->remember_token = $value;
+	}
+
+	//obtener tokenName
+	public function getRememberTokenName()
+	{
+		return "remember_token";
 	}
 
 	

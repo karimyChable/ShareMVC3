@@ -9,7 +9,7 @@ class UserController extends BaseController {
 		//Verifica si se autenticó el usuario
 		if(Auth::check()){ 
 			//Lo redirige a la página principal de la aplicación
-			return Redirect::to('/');
+			return Redirect::to('/syf');
 		}else{
 			//Muestra la página de login
 			return View::make('loginSYF');
@@ -18,11 +18,17 @@ class UserController extends BaseController {
 
 	//Función para el inicio de sesión
 	public function login(){
-		//Autentifica al usuario
-		if(Auth::attempt(Input::only('email', 'password')))
+
+		//Guardamos en un arreglo los datos del usuario
+		$userdata = array(
+				'email' => Input::get('email'),
+				'password' => Input::get('password')
+			);
+		//Se validan los datos
+		if(Auth::attempt($userdata))
 		{
 			//Lo redirige a página correspondiente
-			return Redirect::Intended('/profile');
+			return Redirect::to('/syf');
 			//return Redirect::to('/profile');
 			//return View::make('ProfileSYF');			
 		}else{
@@ -38,71 +44,43 @@ class UserController extends BaseController {
 		return Redirect::to('login')->with('error_message', 'Se ha cerrado sesión exitosamente');
 	}
 
+	function showUpdateUser(){
+		return View::make('EditProfileSYF');
+	}
+
 	//Función para actualizar los datos del usuario autentificado.
 	function updateUser(){
 
 		// Reglas para validar la información del formulario.
 		$rules = array(
-			'name' => 'max:30|required',
-			'last_name' => 'max:30|required',
-			'birthdate' => 'date|date_format:Y-m-d',
-			'email' => 'max:60|email|unique:users,email,'.Auth::user()->id.'|required',
-			'password' => 'min:6|max:30|confirmed',
-			'picture'=>'image'
+			'name' => 'required|min:1|max:30', 
+	    	'username' => 'required|min:1|max:30', 
+	    	'email' => 'required|email|unique:users', 
+	    	'password' => 'required|min:6|max:20'
 		);
 
 		// Se valida la información del formulario.
-	    $validator = Validator::make(Input::only('name','last_name','birthdate','email','password','password_confirmation','picture'), $rules);
+	    $validator = Validator::make(Input::only('name','username','email','password'), $rules);
 
 	    // Si la validación falla, se notifica al usuario los errores.
 	    if ($validator->fails())
 	    {
-	        return Redirect::back()->withErrors($validator)->withInput(Input::except('password','password_confirmation','picture'));
+	        return Redirect::back()->withErrors($validator)->withInput(Input::except('password'));
 	    }
 
 	    $user = Auth::user();
 
 	    // Se actualiza la información del usuario.
 	    $user->name = Input::get('name');
-	    $user->last_name = Input::get('last_name');
-	    $user->birthdate = Input::get('birthdate');
+	    $user->username = Input::get('username');
 	    $user->email = Input::get('email');
-	    $user->phone = Input::get('phone');
-	    $user->city_id = Input::get('city_id');
-
-	    // Si se ingresó un nuevo password, se actualiza.
-	    if(Input::get('password')){
-	    	$user->password = Hash::make(Input::get('password'));
-	    }
-
-	    // Si se agregó una imagen, se verifica y se guarda.
-	    if( Input::hasFile('picture') ){
-
-	    	// Se obtiene la imagen del formulario.
-	    	$uploadedFile = Input::file('picture');
-
-	    	if( $uploadedFile->isValid() ){
-
-	    		$destinantionPath = public_path($user->getImagesPath());
-
-	    		// Si existe en el servidor una imagen con el mismo nombre, notifica el error al usuario.
-	    		if( File::exists($destinantionPath.'/'.$uploadedFile->getClientOriginalName()) ){
-
-	    			return Redirect::back()->withErrors(array('picture'=>'Ya existe una imagen con ese nombre.'))->withInput(Input::except('picture','password','password_confirmation'));
-	    		}
-
-	    		// Guarda la imagen en el servidor.
-				$uploadedFile->move($destinantionPath , $uploadedFile->getClientOriginalName());
-
-				// Guarda la ruta de la imagen en la base de datos.
-				$user->picture = $user->getImagesPath() .'/'. $uploadedFile->getClientOriginalName();
-	    	}
-	    }
+	    $user->password = Hash::make(Input::get('password'));
+	   
 
 	    // Se guarda la información del usuario
 	    $user->save();
 
-		return Redirect::to('profile')
+		return Redirect::to('/user')
 			->withMessage('Los datos se han guardado satisfactoriamente.')
 			->withClass('success');
 	}
@@ -129,15 +107,18 @@ class UserController extends BaseController {
 	}
 
 	//Función para mostrar el perfil del usuario autentificado.
-	function showMyProfile(){
+	function showSYF(){
 
-		return View::make('ProfileSYF');
+		return View::make('SYF');
 	}
 
-	//Función para mostrar la página para editar el perfil de usuario.
-	function showUpdateUser(){
-		
-		return View::make('EditProfile');
+	//Función para mostrar el perfil del usuario autentificado.
+	function showProfile(){
+
+		return View::make('profileSYF');
 	}
+
+
+	
 
 }

@@ -14,10 +14,10 @@
 
 //Ruta de presentación ShareYourFiles
 
-Route::get('/', array( 'before' => 'guest', function()
+Route::get('/', function()
 {
 	return View::make('HelloSYF');
-}));
+});
 
 
 //Ruta para páginas de error 404
@@ -32,11 +32,13 @@ Route::group(array('before' => 'auth'), function()
 
 	Route::get('logout', 'UserController@logout');
 
-	Route::get('/profile', 'UserController@showMyProfile');
+	Route::get('/syf', 'UserController@showSYF');
 
-	Route::get('/edit/profile', 'UserController@showUpdateUser');
+	Route::get('/user', 'UserController@showprofile');
 
-	Route::post('/edit/profile', 'UserController@updateUser');
+	Route::get('/edit', 'UserController@showUpdateUser');
+
+	Route::post('/edit', 'UserController@updateUser');
 
 
 });

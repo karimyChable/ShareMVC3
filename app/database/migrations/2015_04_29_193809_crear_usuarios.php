@@ -15,7 +15,7 @@ class CrearUsuarios extends Migration {
 		//
 		Schema::create('users', function($table){
 
-			$table->increments('id_user');
+			$table->increments('id');
 			$table->rememberToken();
 			$table->timestamps();
 			$table->softDeletes();

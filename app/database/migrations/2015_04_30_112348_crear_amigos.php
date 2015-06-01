@@ -14,14 +14,15 @@ class CrearAmigos extends Migration {
 	{
 		//
 		Schema::create('friends', function($table){
-			$table->increments('id_friend');
+			$table->increments('id');
 			$table->integer('id_user')->unsigned();
 			$table->tinyInteger('status');
 			$table->timestamps();
 		});
 
 		Schema::table('friends', function($table) {
-			$table->foreign('id_user')->references('id_user')->on('users')->onDelete('cascade');
+			$table->foreign('id_user')->references('id')->on('users')->onDelete('RESTRICT')->onUpdate('CASCADE');
+
    });
 	}
 

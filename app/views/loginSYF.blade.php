@@ -11,7 +11,7 @@
 	 <div class="main">
 		<div class="login-form">
 			<h1>Inicio de sesión</h1>
-				{{Form::open()}}
+				{{Form::open(array('url' => '/login'))}}
 
 						@if(Session::has('error_message') )
 			                <strong >{{ Session::get('error_message') }}</strong><br>

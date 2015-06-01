@@ -36,7 +36,7 @@ http://www.templatemo.com/preview/templatemo_394_sonic
 
 	<div id="main-sidebar" class="hidden-xs hidden-sm">
 		<div class="logo">
-			<a ><h1>{{Auth::user()->name}}</h1></a>
+			<a href="user"><h1>{{Auth::user()->name}}</h1></a>
 			<span>{{Auth::user()->username}}</span>
 		</div> <!-- /.logo -->
 
@@ -65,63 +65,44 @@ http://www.templatemo.com/preview/templatemo_394_sonic
 					</div> <!-- /.col-md-12 -->
 				</div> <!-- /.row -->
 				<div class='row contact-form'>
-					<!--, 'action'=>'ACTION', 'method' => 'POST'-->
-				{{Form::open(array('id' => 'form_register', 'action' => 'UserController@showUpdateUser', 'method' => 'get'))}}
+                    <div class='col-md-12'>
+				{{Form::model(Auth::user())}}
+		                        <label>Nombre:</label>
+		                        {{Form::text('name', null, array('id'=>'name','maxlength'=>'50','tabindex'=>'1','required'=>'true'))}}
+		                </div> 
+		                <div class='col-md-12'>
+		                        <label>Email:</label>
+		                       	{{Form::email('email', null, array('id'=>'email','maxlength'=>'50','tabindex'=>'2','required'=>'true'))}}
+		                </div> 
+		                <div class='col-md-12'>
+		                        <label>Nombre de usuario:</label>
+		                        {{Form::text('username', null, array('id'=>'username','maxlength'=>'13','tabindex'=>'3','required'=>'true'))}}
+		                </div> 
+		                
+		                <div class='col-md-4'>
+		                        <label for='password'>Contraseña nueva:</label>
+		                        {{Form::password('password', array('id'=>'password','maxlength'=>'50','tabindex'=>'4','required'=>'true'))}}
 
-                    <div class='col-md-12'>
-                        <label >Nombre: {{Auth::user()->name}}</label>
-                    </div> 
-                    <div class='col-md-12'>
-                        <label>Email: {{Auth::user()->email}}</label>
-                    </div>
-                    <div class='col-md-12'>
-                        <label>Nombre de usuario: {{Auth::user()->username}}</label>
-                    </div>
+		                        
+		                </div> <br>
+							<div><strong> {{ $errors -> first('password')}} </strong></div><br>
 
-                    <div class='col-md-4'>
-                        <div class='submit-btn'>
-                            <input type='submit' class='largeButton servicesBgColor' value='Editar'/>
-                        </div> 
-                    </div> 
-                {{Form::close()}}
-            </div>
+
+
+		                <div class='col-md-4'>
+		                        <div class='submit-btn'>
+		                                <!--<a href='#' class='largeButton contactBgColor'>Send Message</a>-->
+		                                <input type='submit' class='largeButton servicesBgColor' value='Guardar'>
+		                        </div> 
+				{{Form::close()}}
+		                </div> 
+		        </div>
 		</div> <!-- /#services -->
 
 	</div> <!-- /#main-content -->
 	<!--Fin contenido principal-->
 
 
-	<!-- JavaScripts -->
-	<script src="js/jquery-1.10.2.min.js"></script>
-	<script src="js/jquery.singlePageNav.js"></script>
-	<script src="js/jquery.flexslider.js"></script>
-	<script src="js/jquery.prettyPhoto.js"></script>
-	<script src="js/custom.js"></script>
-	<script>
-		$(document).ready(function(){
-			$("a[data-gal^='prettyPhoto']").prettyPhoto({hook: 'data-gal'});
-		});
-
-        function initialize() {
-          var mapOptions = {
-            zoom: 13,
-            center: new google.maps.LatLng(40.7809919,-73.9665273)
-          };
-
-          var map = new google.maps.Map(document.getElementById('map-canvas'),
-              mapOptions);
-        }
-
-        function loadScript() {
-          var script = document.createElement('script');
-          script.type = 'text/javascript';
-          script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&' +
-              'callback=initialize';
-          document.body.appendChild(script);
-        }
-
-        window.onload = loadScript;
-    </script>
 <!-- templatemo 394 sonic -->
 </body>
 </html>
