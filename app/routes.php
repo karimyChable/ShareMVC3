@@ -48,8 +48,9 @@ Route::group(array('before' => 'auth'), function()
 
 	Route::post('/searchFriend','UserController@searchFriend');
 
+	Route::get('/files', 'UserController@showMyFiles');
 
-
+	Route::post('save', 'UserController@savePost');
 
 });
 

@@ -25,8 +25,8 @@ http://www.templatemo.com/preview/templatemo_394_sonic
         </a>
         <div class="navigation responsive-menu">
             <ul>
-            	<li class='about'><a class='active' href='#'>Inicio</a></li>
-                <li class='portfolio'><a href='files'>Mis Archivos</a></li>
+            	<li class='about'><a href='syf'>Inicio</a></li>
+                <li class='portfolio'><a  class='active' href='files'>Mis Archivos</a></li>
                 <li class='contact'><a href='friends'>Amigos</a></li>
                 <li class='home'><a href="logout">Cerrar sesión</a></li>
             </ul> <!-- /.main_menu -->
@@ -41,8 +41,8 @@ http://www.templatemo.com/preview/templatemo_394_sonic
 
 		<div class="navigation">
 	        <ul class="main-menu">
-            	<li class='about'><a class='active' href='#'>Inicio</a></li>
-                <li class='portfolio'><a href='files'>Mis Archivos</a></li>
+            	<li class='about'><a  href='syf'>Inicio</a></li>
+                <li class='portfolio'><a class='active' href='files'>Mis Archivos</a></li>
                 <li class='contact'><a href='friends'>Amigos</a></li>
                 <li class='home'><a href="logout">Cerrar sesión</a></li>
 	        </ul>
@@ -54,27 +54,65 @@ http://www.templatemo.com/preview/templatemo_394_sonic
 	<!--contenido principal-->
 	<div id="main-content">
 
+
 		<div class="container-fluid">
 
-			<div id="about" class="section-content">
+			<div id="portfolio" class="section-content">
 				<div class="row">
 					<div class="col-md-12">
 						<div class="section-title">
-							<h2>Inicio</h2>
-						</div>
-					</div>
-				</div>
+							<h2>Mis Archivos</h2>
+						</div> <!-- /.section-title -->
+					</div> <!-- /.col-md-12 -->
+				</div> <!-- /.row -->
+				{{Form::open(array('action' => 'UserController@savePost', 'method' => 'post', 'files'=> true))}}
+				        <label>Comentario (120 caract)</label><br>
+		               
+		                {{Form::textarea('description', null, array('id'=>'description','rows'=>'2','placeholder'=>'Escriba un comentario','cols'=>'63','maxlength'=>'120'))}}
+
+				        <div class='col-md-6'>
+		               
+		                	{{Form::file('file')}}
+			           	
+			            </div>
+
+		                <div class='col-md-6'>
+
+		                	{{Form::submit('Guardar', array('class'=>'largeButton portfolioBgColor'))}}
+
+				       	</div>                    
+				{{Form::close()}}
+
+
+			<!--Aquí van los archivos del usuario (FOREACH para archivos)-->
+					<div class = 'row'>
+							<div class='col-md-12'>
+							    <div class='member-item'>
+							        <div class='member-content'>
+							            <h4>{{Auth::user()->name}}</h4>
+							            <p>"Aqui va la descripción del archivo"</p>
+							            <p><a href=''>"Aqui va el filepath"</a></p>
+							        </div>
+							    </div>
+							</div>
+				    </div>
+				    <br/>
+
+
+
 				
-			</div> <!-- /#about -->
+			</div> <!-- /#portfolio -->
+
 			
-			
+
+		</div> <!-- /.container-fluid -->
+
+		
 
 	</div> <!-- /#main-content -->
 	<!--Fin contenido principal-->
 
 
-	<!-- JavaScripts -->
-	<script src="js/jquery-1.10.2.min.js"></script>
 	
 <!-- templatemo 394 sonic -->
 </body>

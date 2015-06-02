@@ -133,4 +133,14 @@ class UserController extends BaseController {
 
 		return View::make('friends', compact('friends'), compact('posibleFriends'));
 	}
+
+	function showMyFiles(){
+		return View::make('files');
+	}
+
+	function savePost(){
+
+		return Redirect::to('/files');
+	}
+
 }
