@@ -102,12 +102,35 @@ class UserController extends BaseController {
 		$query = "SELECT users.id, username, name from (select id_user from friends where id = ".Auth::user()->id." union select id from friends where id_user= ".Auth::user()->id.") AS friendsTb join users on friendsTb.id_user = users.id";
     	$friends = DB::select($query);
 
-		return View::make('friends', compact('friends'));
+    	$query = "SELECT users.id, username, name from users WHERE id NOT IN (SELECT users.id from (select id_user from friends where id = ".Auth::user()->id." union select id from friends where id_user= ".Auth::user()->id." ) AS friendsTb join users on friendsTb.id_user = users.id)AND id != ".Auth::user()->id;
+    	$posibleFriends = DB::select($query);
+
+		return View::make('friends', compact('friends'), compact('posibleFriends'));
 
 	}
 
-	function deleteFriend(){
-		
+	function deleteFriend($id){
+        DB::table('friends')
+            ->where('id_user', '=', Auth::user()->id)
+            ->where('id', '=', $id)
+		    ->delete();
+
+		return Redirect::to('/friends');
 	}
 
+	function addFriend($id){
+		DB::table('friends')->insert(array('id' => $id, 'id_user' => Auth::user()->id));
+		return Redirect::to('/friends');
+	}
+
+	function searchFriend(){
+		$query = "SELECT users.id, username, name from (select id_user from friends where id = ".Auth::user()->id." union select id from friends where id_user= ".Auth::user()->id.") AS friendsTb join users on friendsTb.id_user = users.id";
+    	$friends = DB::select($query);
+
+		$friendName = Input::get('search_string');
+    	$query = "SELECT * FROM ( SELECT users.id, username, name from users WHERE id NOT IN (SELECT users.id from (select id_user from friends where id = ".Auth::user()->id." union select id from friends where id_user= ".Auth::user()->id." ) AS friendsTb join users on friendsTb.id_user = users.id)AND id != ".Auth::user()->id.") AS notFriends WHERE username LIKE '%".$friendName."%' or name LIKE '%".$friendName."%'";
+    	$posibleFriends = DB::select($query);
+
+		return View::make('friends', compact('friends'), compact('posibleFriends'));
+	}
 }

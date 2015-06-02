@@ -10,13 +10,13 @@ http://www.templatemo.com/preview/templatemo_394_sonic
 -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="initial-scale=1">
-    
-	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" href="css/bootstrap.min.css">
-	<link rel="stylesheet" href="css/style.css">
-    <link href='//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css' rel='stylesheet'>	
-	<link rel="stylesheet" href="css/templatemo_misc.css">
-	<link rel="stylesheet" href="css/templatemo_style.css">
+
+	<link href="{{ URL::asset('http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,800italic,400,300,600,700,800')}}" rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="{{ URL::asset('css/bootstrap.min.css')}}">
+	<link rel="stylesheet" href="{{ URL::asset('css/style.css')}}">
+    <link href="{{ URL::asset('//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css')}}" rel='stylesheet'>	
+	<link rel="stylesheet" href="{{ URL::asset('css/templatemo_misc.css')}}">
+	<link rel="stylesheet" href="{{ URL::asset('css/templatemo_style.css')}}">
 </head>
 <body>
 	
@@ -26,9 +26,9 @@ http://www.templatemo.com/preview/templatemo_394_sonic
         </a>
         <div class="navigation responsive-menu">
             <ul>
-            	<li class='about'><a class='active' href='#'>Inicio</a></li>
+            	<li class='about'><a class='active' href='syf'>Inicio</a></li>
                 <li class='portfolio'><a href='#'>Mis Archivos</a></li>
-                <li class='contact'><a href='#'>Amigos</a></li>
+                <li class='contact'><a href='friends'>Amigos</a></li>
                 <li class='home'><a href="logout">Cerrar sesión</a></li>
             </ul> <!-- /.main_menu -->
         </div> <!-- /.responsive_menu -->
@@ -42,9 +42,9 @@ http://www.templatemo.com/preview/templatemo_394_sonic
 
 		<div class="navigation">
 	        <ul class="main-menu">
-            	<li class='about'><a class='active' href='#'>Inicio</a></li>
+            	<li class='about'><a class='active' href='syf'>Inicio</a></li>
                 <li class='portfolio'><a href='#'>Mis Archivos</a></li>
-                <li class='contact'><a href='#'>Amigos</a></li>
+                <li class='contact'><a href='friends'>Amigos</a></li>
                 <li class='home'><a href="logout">Cerrar sesión</a></li>
 	        </ul>
 		</div> <!-- /.navigation -->
@@ -94,81 +94,58 @@ http://www.templatemo.com/preview/templatemo_394_sonic
 			
 			
 			
-			<div id="contact" class="section-content">
-				<div class="row">
-					<div class="col-md-12">
-						<div class="section-title">
-							<h2>Contact Us</h2>
-						</div> <!-- /.section-title -->
-					</div> <!-- /.col-md-12 -->
-				</div> <!-- /.row -->
-				<div class="row">
-					<div class="col-md-12">
-						<div class="map-holder">
-							<div class="google-map-canvas" id="map-canvas">
-                    		</div>
-						</div> <!-- /.map-holder -->
-					</div> <!-- /.col-md-12 -->
-				</div> <!-- /.row -->
-				<div class="row contact-form">
-					<div class="col-md-4">
-						<label for="name-id" class="required">Name:</label>
-						<input name="name-id" type="text" id="name-id" maxlength="40">
-					</div> <!-- /.col-md-4 -->
-					<div class="col-md-4">
-						<label for="email-id" class="required">Email:</label>
-						<input name="email-id" type="text" id="email-id" maxlength="40">
-					</div> <!-- /.col-md-4 -->
-					<div class="col-md-4">
-						<label for="subject-id">Subject:</label>
-						<input name="subject-id" type="text" id="subject-id" maxlength="60">
-					</div> <!-- /.col-md-4 -->
-					<div class="col-md-12">
-						<label for="message-id" class="required">Message:</label>
-						<textarea name="message-id" id="message-id" rows="6"></textarea>
-					</div> <!-- /.col-md-12 -->
-					<div class="col-md-12">
-						<div class="submit-btn">
-							<a href="#" class="largeButton contactBgColor">Send Message</a>
-						</div> <!-- /.submit-btn -->
-					</div> <!-- /.col-md-12 -->
-				</div>
-			</div> <!-- /#contact -->
+			<div id='contact' class='section-content'>
+            <div class='row'>
+                <div class='row contact-form'>
+                    <div class='col-md-12'>
+                            <div class='section-title'>
+                                <h2>
+                                    Buscar amigos
+                                </h2>
+                            </div>
+                        <div class='col-md-8'>
+                        		{{Form::open(array('action' => 'UserController@searchFriend', 'method' => 'post'))}}
+    								{{Form::text('search_string','',array('placeholder' => 'Ingrese un nombre c:' , 'required' => 'required' , 'tabindex' => '1'))}}
+                        </div>
+                        <div class='col-md-4'>
+                                    <input type='submit' class = 'largeButton contactBgColor' value='Buscar'>
+								{{Form::close()}}
+                        </div>
+                        	@if(count($posibleFriends) > 0)
+                        <table class='friendsTb'>
+                        	<thead>
+	                                <th>Nombre de usuario</th><th>Nombre</th><th></th>
+	                            </thead>
+	                            <tbody>
+	                            	@foreach($posibleFriends as $friend)
+		                            	<tr>
+			                            	<td>{{$friend->username}}</td>
+			                            	<td>{{$friend->name}}</td>
+			                            	<td>
+			                            		<a href="{{ URL('add/'.$friend->id)}}">
+			                            			<i class='fa fa-user-plus 2x' style ='color:#169f60'></i>
+			                            		</a>
+			                            	</td>
+	                            		</tr>
+	                            	@endforeach
+	                            </tbody>
+	                    </table>
+                           	@else
+								<br/>
+	                        	<br/>
+	                        	No hay resultados con ese nombre :C
+	                        	<br/>
+	                        	O ya es tu amig@ :D
 
+                            @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 		</div> <!-- /.container-fluid -->
 
-		<div class="site-footer">
-			<div class="first-footer">
-				<div class="container-fluid">
-					<div class="row">
-						<div class="col-md-12">
-							<div class="social-footer">
-								<ul>
-									<li><a href="#" class="fa fa-facebook"></a></li>
-									<li><a href="#" class="fa fa-twitter"></a></li>
-									<li><a href="#" class="fa fa-dribbble"></a></li>
-									<li><a href="#" class="fa fa-linkedin"></a></li>
-									<li><a href="#" class="fa fa-rss"></a></li>
-								</ul>
-							</div> <!-- /.social-footer -->
-						</div> <!-- /.col-md-12 -->
-					</div> <!-- /.row -->
-				</div> <!-- /.container-fluid -->
-			</div> <!-- /.first-footer -->
-			<div class="bottom-footer">
-				<div class="container-fluid">
-					<div class="row">
-						<div class="col-md-6">
-							<p class="copyright">Copyright © 2084 <a href="#">Your Company Name</a>
-                            </p>
-						</div> <!-- /.col-md-6 -->
-						<div class="col-md-6 credits">
-							<p><!-- Design: <a href="http://www.templatemo.com">templatemo</a> --></p>
-						</div> <!-- /.col-md-6 -->
-					</div> <!-- /.row -->
-				</div> <!-- /.container-fluid -->
-			</div> <!-- /.bottom-footer -->
-		</div> <!-- /.site-footer -->
+		
 
 	</div> <!-- /#main-content -->
 	<!--Fin contenido principal-->

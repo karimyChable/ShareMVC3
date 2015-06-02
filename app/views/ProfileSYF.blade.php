@@ -27,7 +27,7 @@ http://www.templatemo.com/preview/templatemo_394_sonic
             <ul>
             	<li class='about'><a href='syf'>Inicio</a></li>
                 <li class='portfolio'><a href='#'>Mis Archivos</a></li>
-                <li class='contact'><a href='#'>Amigos</a></li>
+                <li class='contact'><a href='friends'>Amigos</a></li>
                 <li class='home'><a href="logout">Cerrar sesión</a></li>
             </ul> <!-- /.main_menu -->
         </div> <!-- /.responsive_menu -->
@@ -43,7 +43,7 @@ http://www.templatemo.com/preview/templatemo_394_sonic
 	        <ul class="main-menu">
             	<li class='about'><a href='syf'>Inicio</a></li>
                 <li class='portfolio'><a href='#'>Mis Archivos</a></li>
-                <li class='contact'><a href='#'>Amigos</a></li>
+                <li class='contact'><a href='friends'>Amigos</a></li>
                 <li class='home'><a href="logout">Cerrar sesión</a></li>
 	        </ul>
 		</div> <!-- /.navigation -->

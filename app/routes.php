@@ -42,7 +42,13 @@ Route::group(array('before' => 'auth'), function()
 
 	Route::get('/friends','UserController@showFriends');
 
-	Route::post('/delete/{id}','UserController@deleteFriend');
+	Route::get('/delete/{id}','UserController@deleteFriend');
+
+	Route::get('/add/{id}','UserController@addFriend');
+
+	Route::post('/searchFriend','UserController@searchFriend');
+
+
 
 
 });
