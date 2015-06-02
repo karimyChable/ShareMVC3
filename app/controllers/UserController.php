@@ -86,8 +86,9 @@ class UserController extends BaseController {
 
 	//Función para mostrar el perfil del usuario autentificado.
 	function showSYF(){
-
-		return View::make('SYF');
+		$query = "SELECT users.id, username, name from (select id_user from friends where id = ".Auth::user()->id." union select id from friends where id_user= ".Auth::user()->id.") AS friendsTb join users on friendsTb.id_user = users.id";
+    	$friends = DB::select($query);
+		return View::make('SYF') -> withFriends($friends);
 	}
 
 	//Función para mostrar el perfil del usuario autentificado.
@@ -135,12 +136,49 @@ class UserController extends BaseController {
 	}
 
 	function showMyFiles(){
-		return View::make('files');
+		$posts = Auth::user() -> posts;
+		return View::make('files', array("posts" => $posts));
 	}
 
 	function savePost(){
+		$destinationPath = '';
+	    $filename        = '';
+
+	    if (Input::hasFile('file')) {
+	        $file            = Input::file('file');
+	        $destinationPath = app_path().'/user_files/';
+	        $filename        = uniqid(Auth::user()->id).'.'.$file->getClientOriginalExtension();
+	        $mimetype = $file->getMimeType();
+	        $uploadSuccess   = $file->move($destinationPath, $filename);
+	        if($uploadSuccess){
+	        	$post = new Post();
+	        	$post -> content = Input::get('description');
+	        	$post -> filepath = $filename;
+	        	$post -> id_user = Auth::user() -> id;
+	        	$post -> mimetype = $mimetype;
+	        	if($post -> save()){
+	        		return Redirect::to('/files');
+	        	}
+	        	else{
+	        		return Redirect::back()->with('error_message', 'No se guardo tu archivo, intentalo de nuevo.')->withInput();
+	        	}
+	        }
+	        else{
+	        		return Redirect::back()->with('error_message', 'No se guardo tu archivo, intentalo de nuevo.')->withInput();
+	        	}
+	    }
+		else{
+			return Redirect::back()->with('error_message', 'Selecciona un archivo')->withInput();
+
+		}
+
+	   
 
 		return Redirect::to('/files');
+	}
+
+	function deletePost(){
+
 	}
 
 }

@@ -66,6 +66,28 @@ http://www.templatemo.com/preview/templatemo_394_sonic
 				</div>
 				
 			</div> <!-- /#about -->
+			@foreach($friends as $friend)
+				<?php 
+					$friend = User::find($friend -> id);
+				?>
+				<div class='col-lg-12'>
+					<h2>Archivos de tu amigo {{$friend -> name}}</h2>
+				@foreach($friend -> posts as $post)
+					<div class = 'row'>
+							<div class='col-md-12'>
+							    <div class='member-item'>
+							        <div class='member-content'>
+							            <h4>{{Auth::user()->name}}</h4>
+							            <p>{{$post -> content}}</p>
+							            <p><a href='{{URL::to('download/'.$post -> id)}}'>{{$post -> filepath}}</a></p>
+							        </div>
+							    </div>
+							</div>
+				    </div>
+				    <br/>
+			    @endforeach
+			    </div>
+			@endforeach
 			
 			
 

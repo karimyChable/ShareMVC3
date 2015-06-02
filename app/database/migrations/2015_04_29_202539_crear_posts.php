@@ -18,6 +18,7 @@ class CrearPosts extends Migration {
 			$table->integer('id_user')->unsigned();
 			$table->text('content', 100);
 			$table->text('filepath', 100);
+			$table->text('mimetype', 100);
 			$table->timestamps();
 		});
 

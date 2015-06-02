@@ -52,7 +52,27 @@ Route::group(array('before' => 'auth'), function()
 
 	Route::post('save', 'UserController@savePost');
 
-});
+	Route::get('download/{id}', function($id)
+	{
+	    // Check if file exists in app/storage/file folder
+	    $post = Post::find($id);
+	    $file_path = app_path() .'/user_files/'. $post -> filepath;
+	    if (file_exists($file_path))
+	    {
+	        // Send Download
+	        return Response::download($file_path, $post -> filepath, [
+	            'Content-Length: '. filesize($file_path).
+	            'Content-type: '.$post -> mimetype
+	        ]);
+	    }
+	    else
+	    {
+	        // Error
+	        exit('Requested file does not exist on our server!');
+	    }
+	});
+
+	});
 
 
 Route::get('/login', 'UserController@showLogin');

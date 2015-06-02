@@ -57,7 +57,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	//Relación con posts
 	public function posts()
 	{
-		return $this->hasMany('Post');
+		return $this->hasMany('Post', 'id_user');
 	}
 
 	

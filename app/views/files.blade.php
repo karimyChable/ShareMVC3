@@ -83,20 +83,21 @@ http://www.templatemo.com/preview/templatemo_394_sonic
 				       	</div>                    
 				{{Form::close()}}
 
-
 			<!--Aquí van los archivos del usuario (FOREACH para archivos)-->
-					<div class = 'row'>
-							<div class='col-md-12'>
-							    <div class='member-item'>
-							        <div class='member-content'>
-							            <h4>{{Auth::user()->name}}</h4>
-							            <p>"Aqui va la descripción del archivo"</p>
-							            <p><a href=''>"Aqui va el filepath"</a></p>
-							        </div>
-							    </div>
-							</div>
-				    </div>
-				    <br/>
+					@foreach($posts as $post)
+						<div class = 'row'>
+								<div class='col-md-12'>
+								    <div class='member-item'>
+								        <div class='member-content'>
+								            <h4>{{Auth::user()->name}}</h4>
+								            <p>{{$post -> content}}</p>
+								            <p><a href='{{URL::to('download/'.$post -> id)}}'>{{$post -> filepath}}</a></p>
+								        </div>
+								    </div>
+								</div>
+					    </div>
+					    <br/>
+				    @endforeach
 
 
 
