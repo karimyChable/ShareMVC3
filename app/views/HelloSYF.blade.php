@@ -26,8 +26,8 @@ http://www.templatemo.com/preview/templatemo_394_sonic
         </a>
         <div class="navigation responsive-menu">
             <ul>
-                <li class="home"><a href="#templatemo">Home</a></li>
-	            <li class="about"><a href="#about">About Us</a></li>
+                <li class="home"><a href="#templatemo">INICIO</a></li>
+	            <li class="about"><a href="#about">NOSOTROS</a></li>
 	            
             </ul> <!-- /.main_menu -->
         </div> <!-- /.responsive_menu -->
@@ -41,8 +41,8 @@ http://www.templatemo.com/preview/templatemo_394_sonic
 
 		<div class="navigation">
 	        <ul class="main-menu">
-	            <li class="home"><a href="#templatemo">Home</a></li>
-	            <li class="about"><a href="#about">About Us</a></li>
+                <li class="home"><a href="#templatemo">INICIO</a></li>
+	            <li class="about"><a href="#about">NOSOTROS</a></li>
 	          
 	        </ul>
 		</div> <!-- /.navigation -->
@@ -106,7 +106,7 @@ http://www.templatemo.com/preview/templatemo_394_sonic
 				<div class="row">
 					<div class="col-md-12">
 						<div class="section-title">
-							<h2>About Us</h2>
+							<h2>NOSOTROS</h2>
 						</div>
 					</div>
 				</div>
@@ -125,7 +125,7 @@ http://www.templatemo.com/preview/templatemo_394_sonic
 					</ul>
 					<div class="col-md-4">
 						<div class="story-image">
-							<img src="images/responsive-design.jpg" alt="">
+							<img src="images/team.jpg" alt="">
 						</div>
 					</div>
 				</div> <!-- /.row -->

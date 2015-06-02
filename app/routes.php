@@ -40,6 +40,10 @@ Route::group(array('before' => 'auth'), function()
 
 	Route::post('/edit', 'UserController@updateUser');
 
+	Route::get('/friends','UserController@showFriends');
+
+	Route::post('/delete/{id}','UserController@deleteFriend');
+
 
 });
 

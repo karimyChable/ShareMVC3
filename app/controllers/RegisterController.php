@@ -69,7 +69,7 @@ class RegisterController extends BaseController {
 			//Se redirige al usuario a su perfil en la aplicación
 			if(Auth::attempt(array('email' => $user -> email, 'password' => Input::get('password'))))
 			{
-				return Redirect::intended('profile');			
+				return Redirect::intended('syf');			
 			}
 			return Redirect::Redirect('login')->with('message', 'Registro Exitoso, inicia sesión.');
 		}	

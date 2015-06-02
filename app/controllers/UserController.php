@@ -96,7 +96,18 @@ class UserController extends BaseController {
 		return View::make('profileSYF');
 	}
 
+	//Función para mostrar los amigos
 
-	
+	function showFriends(){
+		$query = "SELECT users.id, username, name from (select id_user from friends where id = ".Auth::user()->id." union select id from friends where id_user= ".Auth::user()->id.") AS friendsTb join users on friendsTb.id_user = users.id";
+    	$friends = DB::select($query);
+
+		return View::make('friends', compact('friends'));
+
+	}
+
+	function deleteFriend(){
+		
+	}
 
 }

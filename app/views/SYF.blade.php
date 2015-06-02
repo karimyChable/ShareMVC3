@@ -13,6 +13,7 @@ http://www.templatemo.com/preview/templatemo_394_sonic
     
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="css/font-awesome.min.css">
 	<link rel="stylesheet" href="css/templatemo_misc.css">
 	<link rel="stylesheet" href="css/templatemo_style.css">
@@ -25,11 +26,10 @@ http://www.templatemo.com/preview/templatemo_394_sonic
         </a>
         <div class="navigation responsive-menu">
             <ul>
-                <li class="home"><a href="#templatemo">Home</a></li>
-	            <li class="about"><a href="#about">About Us</a></li>
-	            <li class="services"><a href="#services">Perfil</a></li>
-	            <li class="portfolio"><a href="#portfolio">Portfolio</a></li>
-	            <li class="contact"><a href="#contact">Contact</a></li>
+            	<li class='about'><a class='active' href='#'>Inicio</a></li>
+                <li class='portfolio'><a href='#'>Mis Archivos</a></li>
+                <li class='contact'><a href='friends'>Amigos</a></li>
+                <li class='home'><a href="logout">Cerrar sesión</a></li>
             </ul> <!-- /.main_menu -->
         </div> <!-- /.responsive_menu -->
     </div> <!-- /responsive_navigation -->
@@ -42,11 +42,10 @@ http://www.templatemo.com/preview/templatemo_394_sonic
 
 		<div class="navigation">
 	        <ul class="main-menu">
-	            <li class="home"><a href="#templatemo">Home</a></li>
-	            <li class="about"><a href="#about">About Us</a></li>
-	            <li class="services"><a href="#services">Perfil</a></li>
-	            <li class="portfolio"><a href="#portfolio">Portfolio</a></li>
-	            <li class="contact"><a href="#contact">Contact</a></li>
+            	<li class='about'><a class='active' href='#'>Inicio</a></li>
+                <li class='portfolio'><a href='#'>Mis Archivos</a></li>
+                <li class='contact'><a href='friends'>Amigos</a></li>
+                <li class='home'><a href="logout">Cerrar sesión</a></li>
 	        </ul>
 		</div> <!-- /.navigation -->
 
@@ -83,7 +82,7 @@ http://www.templatemo.com/preview/templatemo_394_sonic
 							<div class="slider-caption">
 								<h2>Free Templates</h2>
 								<p>All templates are free to download and use for your personal or commercial websites.</p>
-								<a href="#" class="largeButton homeBgColor">Downloads</a>
+								<a href="logout" class="largeButton homeBgColor">Downloads</a>
 							</div>
 							<img src="images/slide3.jpg" alt="Slide 3">
 						</li>
@@ -394,35 +393,7 @@ http://www.templatemo.com/preview/templatemo_394_sonic
 
 	<!-- JavaScripts -->
 	<script src="js/jquery-1.10.2.min.js"></script>
-	<script src="js/jquery.singlePageNav.js"></script>
-	<script src="js/jquery.flexslider.js"></script>
-	<script src="js/jquery.prettyPhoto.js"></script>
-	<script src="js/custom.js"></script>
-	<script>
-		$(document).ready(function(){
-			$("a[data-gal^='prettyPhoto']").prettyPhoto({hook: 'data-gal'});
-		});
-
-        function initialize() {
-          var mapOptions = {
-            zoom: 13,
-            center: new google.maps.LatLng(40.7809919,-73.9665273)
-          };
-
-          var map = new google.maps.Map(document.getElementById('map-canvas'),
-              mapOptions);
-        }
-
-        function loadScript() {
-          var script = document.createElement('script');
-          script.type = 'text/javascript';
-          script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&' +
-              'callback=initialize';
-          document.body.appendChild(script);
-        }
-
-        window.onload = loadScript;
-    </script>
+	
 <!-- templatemo 394 sonic -->
 </body>
 </html>
